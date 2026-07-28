@@ -820,35 +820,35 @@
 
     function buildScoreBar(score, scoreClass) {
       return `
-        <div class="score-section">
-          <div class="score-header">
-            <span class="score-label">Score de compatibilité</span>
-            <span class="score-pct ${scoreClass}">${score}%</span>
+        <div class="pp-score-section">
+          <div class="pp-score-header">
+            <span class="pp-score-label">Score de compatibilité</span>
+            <span class="pp-score-pct ${scoreClass}">${score}%</span>
           </div>
-          <div class="score-bar-track">
-            <div class="score-bar-fill ${scoreClass}" style="width:${score}%;"></div>
+          <div class="pp-score-bar-track">
+            <div class="pp-score-bar-fill ${scoreClass}" style="width:${score}%;"></div>
           </div>
         </div>`;
     }
 
     function buildMetrics(verdict, data) {
       return `
-        <div class="metric-grid">
-          <div class="metric-item">
-            <div class="metric-value">${Math.round((verdict.coverage||0)*100)}%</div>
-            <div class="metric-label">Couverture de remboursement</div>
+        <div class="pp-metric-grid">
+          <div class="pp-metric-item">
+            <div class="pp-metric-value">${Math.round((verdict.coverage||0)*100)}%</div>
+            <div class="pp-metric-label">Couverture de remboursement</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-value">${Math.round((verdict.contributionRatio||0)*100)}%</div>
-            <div class="metric-label">Ratio d'apport</div>
+          <div class="pp-metric-item">
+            <div class="pp-metric-value">${Math.round((verdict.contributionRatio||0)*100)}%</div>
+            <div class="pp-metric-label">Ratio d'apport</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-value">${(verdict.actualLoan || data.requested_amount).toLocaleString('fr-FR')} €</div>
-            <div class="metric-label">Montant finançable estimé</div>
+          <div class="pp-metric-item">
+            <div class="pp-metric-value">${(verdict.actualLoan || data.requested_amount).toLocaleString('fr-FR')} €</div>
+            <div class="pp-metric-label">Montant finançable estimé</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-value">${verdict.duree || 7} ans</div>
-            <div class="metric-label">Durée indicative</div>
+          <div class="pp-metric-item">
+            <div class="pp-metric-value">${verdict.duree || 7} ans</div>
+            <div class="pp-metric-label">Durée indicative</div>
           </div>
         </div>`;
     }
@@ -872,8 +872,8 @@
               ${buildScoreBar(verdict.score, verdict.scoreClass)}
               ${buildMetrics(verdict, data)}
               <div style="margin-top:1rem; padding:0.75rem; background:var(--neural-000); border-radius:var(--radius-card);">
-                <div class="estimation-row"><span class="label">Garanties probables</span><span class="value">${garantieTxt}</span></div>
-                <div class="estimation-row" style="margin-top:0.3rem;"><span class="label">Mensualité estimée</span><span class="value">${verdict.newAnnualDebt ? Math.round(verdict.newAnnualDebt/12).toLocaleString('fr-FR') + ' €/mois' : '—'}</span></div>
+                <div class="pp-estimation-row"><span class="pp-est-label">Garanties probables</span><span class="pp-est-value">${garantieTxt}</span></div>
+                <div class="pp-estimation-row" style="margin-top:0.3rem;"><span class="pp-est-label">Mensualité estimée</span><span class="pp-est-value">${verdict.newAnnualDebt ? Math.round(verdict.newAnnualDebt/12).toLocaleString('fr-FR') + ' €/mois' : '—'}</span></div>
               </div>
             `;
             showStep('verdict-favorable');
