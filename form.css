@@ -30,9 +30,9 @@
     #pp-form img { max-width: 100%; height: auto; display: block; }
     *[tabindex]:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
-    .pp-navbar { position: relative; top: 0; left: 0; right: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; }
-    .pp-navbar-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 68.5rem; padding: 0.5rem 1.5rem; border-radius: 50px; background-color: rgba(255,255,255,0.85); backdrop-filter: blur(12.5px); -webkit-backdrop-filter: blur(12.5px); border: 1px solid var(--neural-200); box-shadow: 0 4px 4px rgba(0,0,0,0.03), 0 1px 1px rgba(0,0,0,0.04); }
-    .pp-navbar-logo { display: flex; align-items: center; gap: 0.5rem; height: 40px; }
+    .pp-navbar { position: relative; top: 0; left: 0; right: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 0.5rem 0.75rem; }
+    .pp-navbar-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 68.5rem; padding: 0.35rem 1rem; border-radius: 50px; background-color: rgba(255,255,255,0.85); backdrop-filter: blur(12.5px); -webkit-backdrop-filter: blur(12.5px); border: 1px solid var(--neural-200); box-shadow: 0 4px 4px rgba(0,0,0,0.03), 0 1px 1px rgba(0,0,0,0.04); }
+    .pp-navbar-logo { display: flex; align-items: center; gap: 8px; height: 28px; }
     #pp-form .pp-navbar-logo img { height: 100%; width: auto; display: block; }
     .pp-navbar-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: var(--fs-s); font-weight: 500; color: var(--neural-500); transition: color 0.2s; }
     .pp-navbar-back:hover { color: var(--brand-yellow-900); }
@@ -137,7 +137,7 @@
       .pp-hero { padding-top: 1rem; }
       .pp-hero-inner, .pp-form-section { padding-left: 1.25rem; padding-right: 1.25rem; }
       .pp-form-card { padding: 1.5rem; border-radius: 16px; }
-      .pp-navbar-inner { padding: 0.4rem 1rem; }
+      .pp-navbar-inner { padding: 0.3rem 0.75rem; }
       .pp-btn-row { flex-direction: column; }
       .pp-footer { padding: 1.5rem 1.25rem; }
       .pp-footer-inner { flex-direction: column; text-align: center; }
