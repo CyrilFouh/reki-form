@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test hostile — Formulaire PretPro</title>
+
+  <!-- ===== SIMULATION D'UN CSS GLOBAL WEBFLOW AGRESSIF ===== -->
+  <style>
+    /* Styles hostiles qui casseraient un formulaire non protégé */
+    * { box-sizing: content-box; }  /* box-sizing différent */
+    body { font-family: 'Times New Roman', serif; font-size: 10px; line-height: 2; margin: 0; padding: 0; }
+    img { width: 100% !important; height: auto !important; }  /* force toutes les images à 100% */
+    div { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+    a { text-decoration: underline !important; color: blue !important; font-weight: bold !important; }
+    button { font-family: 'Courier New', monospace !important; font-size: 8px !important; }
+    input, select, textarea { font-family: 'Georgia', serif !important; font-size: 9px !important; padding: 20px !important; }
+    label { font-weight: 100 !important; font-size: 10px !important; }
+    h1, h2 { font-family: 'Impact', sans-serif !important; font-size: 50px !important; text-transform: uppercase !important; }
+    p { font-size: 8px !important; line-height: 3 !important; }
+    nav, footer { background: red !important; color: white !important; }
+
+    /* Layout hôte */
+    .host-container { max-width:1200px; margin:0 auto; padding:2rem; font-family:Arial,sans-serif; font-size:14px; }
+    .host-header { background:#222; color:#fff; padding:1rem 2rem; text-align:center; }
+    .host-header h1 { font-size:24px !important; font-family:Arial,sans-serif !important; text-transform:none !important; }
+    .host-badge { display:inline-block; background:#e53e3e; color:#fff; padding:0.25rem 1rem; border-radius:4px; margin:1rem 0; font-size:12px; font-family:Arial,sans-serif !important; text-transform:none !important; letter-spacing:0; }
+    #pp-form-wrapper { border:2px dashed #e53e3e; padding:1rem; margin:1rem 0; }
+    #pp-form-wrapper::before { content:'⬇️ Zone Embed Webflow (styles hostiles actifs) ⬇️'; display:block; text-align:center; font-size:11px; color:#e53e3e; margin-bottom:0.5rem; font-family:Arial,sans-serif !important; text-transform:none; letter-spacing:0; }
+  </style>
+
+  <!-- ===== EMBED PRETPRO (fichiers locaux) ===== -->
+  <link rel="stylesheet" href="form.css">
+</head>
+<body>
+  <div class="host-header"><h1>Page Hôte Webflow — mode hostile</h1></div>
+  <div class="host-container">
+    <div class="host-badge">⚠️ CSS global agressif : box-sizing:content-box, img{width:100%}, font-size exotiques</div>
+    <p style="font-family:Arial,sans-serif !important;font-size:14px !important;line-height:1.5 !important;text-transform:none;letter-spacing:0;">
+      Cette page simule un environnement Webflow avec des styles globaux agressifs.<br>
+      Le formulaire PretPro ci-dessous doit rester <strong>parfaitement intact</strong>.
+    </p>
+
+    <div id="pp-form-wrapper">
+      <div id="pp-form"></div>
+    </div>
+
+    <p style="font-family:Arial,sans-serif !important;font-size:14px !important;line-height:1.5 !important;text-transform:none;letter-spacing:0;margin-top:2rem;">
+      ✅ Le contenu hôte reprend normalement ci-dessous — les styles du formulaire ne doivent pas fuir.
+    </p>
+  </div>
+
+  <script src="form.js"></script>
+</body>
+</html>
