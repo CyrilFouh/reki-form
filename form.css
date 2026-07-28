@@ -68,7 +68,7 @@
 /* =========================================================
    NAVBAR
    ========================================================= */
-.pp-navbar { position: relative; display: flex; align-items: center; justify-content: center; padding: 0.75rem 0; }
+.pp-navbar { position: relative; display: flex; align-items: center; justify-content: center; padding: 0.75rem 0; margin-bottom: 0.5rem; }
 .pp-navbar-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0.5rem 1.5rem; border-radius: 50px; background: rgba(255,255,255,0.85); backdrop-filter: blur(12.5px); -webkit-backdrop-filter: blur(12.5px); border: 1px solid var(--pp-neutral-200); box-shadow: 0 4px 4px rgba(0,0,0,0.03), 0 1px 1px rgba(0,0,0,0.04); }
 .pp-navbar-logo { display: flex; align-items: center; gap: 0.5rem; }
 .pp-navbar-logo img { max-height: 40px; width: auto; }
@@ -81,7 +81,7 @@
 /* =========================================================
    HERO
    ========================================================= */
-.pp-hero { padding: 2rem 0 1.5rem; background: var(--pp-white); }
+.pp-hero { padding: 2rem 0 1.5rem; background: var(--pp-white); margin-bottom: 0.5rem; }
 .pp-hero-inner { max-width: 100%; margin: 0 auto; padding: 0 1.5rem; text-align: center; }
 .pp-hero-tag { display: inline-block; background: var(--pp-yellow-tag-bg); color: var(--pp-yellow-900); font-size: 12px; font-weight: 700; padding: 0.35rem 1rem; border-radius: var(--pp-radius-pill); margin-bottom: 1rem; letter-spacing: 0.02em; }
 .pp-hero h1 { font-family: var(--pp-font-heading); font-size: clamp(24px, 5vw, 32px); font-weight: 500; line-height: 1.15; color: var(--pp-neutral-900); margin-bottom: 0.75rem; }
@@ -91,7 +91,7 @@
 /* =========================================================
    FORM CARD
    ========================================================= */
-.pp-form-section { padding: 0.5rem 1.5rem 2rem; }
+.pp-form-section { padding: 0.5rem 1.5rem 2.5rem; }
 .pp-form-card { max-width: 100%; margin: 0 auto; background: var(--pp-white); border: 1px solid var(--pp-neutral-200); border-radius: var(--pp-radius-wrapper); padding: 2rem 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
 
 /* Progress */
@@ -199,7 +199,7 @@
 /* =========================================================
    FOOTER
    ========================================================= */
-.pp-footer { background: var(--pp-neutral-100); border-radius: var(--pp-radius-wrapper) var(--pp-radius-wrapper) 0 0; padding: 1.5rem; margin-top: 1.5rem; }
+.pp-footer { background: var(--pp-neutral-100); border-radius: var(--pp-radius-wrapper) var(--pp-radius-wrapper) 0 0; padding: 1.5rem; margin-top: 2rem; }
 .pp-footer-inner { max-width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
 .pp-footer-brand { display: flex; align-items: center; gap: 0.5rem; }
 .pp-footer-brand img { height: 20px; max-height: 20px; width: auto; }
