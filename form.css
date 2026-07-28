@@ -98,32 +98,32 @@
     .pp-company-confirm .pp-company-name { font-weight: 600; color: var(--neural-900); }
     .pp-company-confirm .pp-company-info { font-size: var(--fs-xs); color: var(--neural-500); margin-top: 0.25rem; }
 
-    .pp-verdict { text-align: center; padding: 1rem 0; }
-    .pp-verdict-icon { font-size: 48px; margin-bottom: 1rem; }
-    .pp-verdict h2 { font-family: var(--font-heading); font-size: 22px; font-weight: 500; margin-bottom: 0.5rem; }
-    .pp-verdict p { font-size: var(--fs-s); color: var(--neural-500); line-height: 1.5; margin-bottom: 1rem; }
-    .pp-verdict .pp-estimation-card { background: var(--neural-000); border: 1px solid var(--neural-200); border-radius: var(--radius-card); padding: 1.25rem; margin: 1.25rem 0; text-align: left; }
-    .pp-verdict .pp-estimation-card h3 { font-size: var(--fs-s); font-weight: 600; margin-bottom: 0.75rem; color: var(--neural-900); }
-    .pp-verdict .pp-estimation-row { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; font-size: var(--fs-s); }
-    .pp-verdict .pp-estimation-row .pp-est-label { color: var(--neural-500); }
-    .pp-verdict .pp-estimation-row .pp-est-value { font-weight: 600; color: var(--neural-900); }
-    .pp-verdict .pp-reasons-box { text-align: left; margin: 1rem 0; padding: 1rem; background: var(--neural-000); border-radius: var(--radius-card); }
-    .pp-verdict .pp-reasons-box li { font-size: var(--fs-s); color: var(--neural-900); margin-bottom: 0.35rem; margin-left: 1.25rem; }
+    #pp-form .pp-verdict { text-align: center; padding: 1rem 0; }
+    #pp-form .pp-verdict-icon { font-size: 48px; margin-bottom: 1rem; }
+    #pp-form .pp-verdict h2 { font-family: var(--font-heading); font-size: 22px; font-weight: 500; margin-bottom: 0.5rem; }
+    #pp-form .pp-verdict p { font-size: var(--fs-s); color: var(--neural-500); line-height: 1.5; margin-bottom: 1rem; }
+    #pp-form .pp-verdict .pp-estimation-card { background: var(--neural-000); border: 1px solid var(--neural-200); border-radius: var(--radius-card); padding: 1.25rem; margin: 1.25rem 0; text-align: left; }
+    #pp-form .pp-verdict .pp-estimation-card h3 { font-size: var(--fs-s); font-weight: 600; margin-bottom: 0.75rem; color: var(--neural-900); }
+    #pp-form .pp-verdict .pp-estimation-row { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; font-size: var(--fs-s); }
+    #pp-form .pp-verdict .pp-estimation-row .pp-est-label { color: var(--neural-500); }
+    #pp-form .pp-verdict .pp-estimation-row .pp-est-value { font-weight: 600; color: var(--neural-900); }
+    #pp-form .pp-verdict .pp-reasons-box { text-align: left; margin: 1rem 0; padding: 1rem; background: var(--neural-000); border-radius: var(--radius-card); }
+    #pp-form .pp-verdict .pp-reasons-box li { font-size: var(--fs-s); color: var(--neural-900); margin-bottom: 0.35rem; margin-left: 1.25rem; }
 
     /* Score bar */
-    .pp-score-section { margin: 1.25rem 0; }
-    .pp-score-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
-    .pp-score-label { font-size: var(--fs-s); font-weight: 600; color: var(--neural-900); }
-    .pp-score-pct { font-family: var(--font-heading); font-size: 28px; font-weight: 500; }
-    .pp-score-pct.high { color: var(--success); } .pp-score-pct.medium { color: var(--brand-yellow-900); } .pp-score-pct.low { color: var(--error); }
-    .pp-score-bar-track { width: 100%; height: 8px; background: var(--neural-200); border-radius: 8px; overflow: hidden; }
-    .pp-score-bar-fill { height: 100%; border-radius: 8px; transition: width 0.6s ease; }
-    .pp-score-bar-fill.high { background: var(--success); } .pp-score-bar-fill.medium { background: var(--brand-yellow-800); } .pp-score-bar-fill.low { background: var(--error); }
+    #pp-form .pp-score-section { margin: 1.25rem 0; }
+    #pp-form .pp-score-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+    #pp-form .pp-score-label { font-size: var(--fs-s); font-weight: 600; color: var(--neural-900); }
+    #pp-form .pp-score-pct { font-family: var(--font-heading); font-size: 28px; font-weight: 500; }
+    #pp-form .pp-score-pct.high { color: var(--success); } #pp-form .pp-score-pct.medium { color: var(--brand-yellow-900); } #pp-form .pp-score-pct.low { color: var(--error); }
+    #pp-form .pp-score-bar-track { width: 100%; height: 8px; background: var(--neural-200); border-radius: 8px; overflow: hidden; }
+    #pp-form .pp-score-bar-fill { height: 100%; border-radius: 8px; transition: width 0.6s ease; }
+    #pp-form .pp-score-bar-fill.high { background: var(--success); } #pp-form .pp-score-bar-fill.medium { background: var(--brand-yellow-800); } #pp-form .pp-score-bar-fill.low { background: var(--error); }
 
-    .pp-metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem; }
-    .pp-metric-item { background: var(--neural-000); border-radius: var(--radius-card); padding: 0.6rem 0.75rem; text-align: center; }
-    .pp-metric-item .pp-metric-value { font-weight: 700; font-size: var(--fs-l); color: var(--neural-900); }
-    .pp-metric-item .pp-metric-label { font-size: var(--fs-xs); color: var(--neural-500); margin-top: 0.1rem; }
+    #pp-form .pp-metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem; }
+    #pp-form .pp-metric-item { background: var(--neural-000); border-radius: var(--radius-card); padding: 0.6rem 0.75rem; text-align: center; }
+    #pp-form .pp-metric-item .pp-metric-value { font-weight: 700; font-size: var(--fs-l); color: var(--neural-900); }
+    #pp-form .pp-metric-item .pp-metric-label { font-size: var(--fs-xs); color: var(--neural-500); margin-top: 0.1rem; }
 
     .pp-footer { background-color: var(--neural-100); border-radius: var(--radius-wrapper) var(--radius-wrapper) 0 0; padding: 2rem 2.5rem; margin-top: 2rem; }
     .pp-footer-inner { max-width: 66rem; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
