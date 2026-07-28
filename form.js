@@ -442,9 +442,6 @@
         <img src="https://cdn.prod.website-files.com/66e83aa7dfde79e2181aec17/67f64110b3be61bad2bbe5b1_TEXT@2x.svg" alt="Reki" style="height: 18px;">
       </div>
       <div class="pp-footer-links">
-        <a href="https://www.reki.eu/mentions-legales" target="_blank">Mentions légales</a>
-        <a href="https://www.reki.eu/politique-de-confidentialite" target="_blank">Politique de confidentialité</a>
-        <a href="https://www.reki.eu/conditions-generales" target="_blank">CGU</a>
         <a href="mailto:contact@reki.eu">Contact</a>
       </div>
       <div class="pp-footer-copy">© 2026 Reki. Tous droits réservés.</div>
