@@ -36,7 +36,7 @@
       <form id="rekiForm" novalidate>
 
         <!-- ===== ÉTAPE 1 — Identification ===== -->
-        <div class="pp-step pp-active" <div class="pp-step pp-active" data-step="1">
+        <div class="pp-step pp-active" data-step="1">
           <div class="pp-step-title">Votre entreprise</div>
           <div class="pp-step-subtitle">Entrez votre SIREN ou déclarez une création</div>
           <div id="siren-mode">
@@ -87,13 +87,12 @@
           </div>
 
           <div class="pp-btn-row">
-            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(3)">Retour</button>
-            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(3)">Continuer</button>
+            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(2)">Retour</button>
+            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(2)">Continuer</button>
           </div>
         </div>
 
-        <!-- ===== ÉTAPE 4 — Financement ===== -->
-        </div>
+        <!-- ===== ÉTAPE 3 — Financement ===== -->
 
         <div class="pp-step" data-step="3"><div class="pp-step-title">Votre plan de financement</div>
           <div class="pp-step-subtitle">L'apport personnel est un élément clé pour les partenaires bancaires.</div>
@@ -136,13 +135,12 @@
           </div>
 
           <div class="pp-btn-row">
-            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(4)">Retour</button>
-            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(4)">Continuer</button>
+            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(3)">Retour</button>
+            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(3)">Continuer</button>
           </div>
         </div>
 
-        <!-- ===== ÉTAPE 5 — Activité financière ===== -->
-        </div>
+        <!-- ===== ÉTAPE 4 — Activité financière ===== -->
 
         <div class="pp-step" data-step="4"><div class="pp-step-title">Votre activité financière</div>
           <div class="pp-step-subtitle">Ces données permettent d'évaluer la capacité de remboursement. Répondez au mieux.</div>
