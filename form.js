@@ -37,7 +37,7 @@
       <form id="rekiForm" novalidate>
 
         <!-- ===== ÉTAPE 1 — Identification ===== -->
-        <div class="pp-step pp-active" data-step="1"><div class="pp-step-title">Votre entreprise</div><div class="pp-step-subtitle">SIREN ou création</div><div id="siren-mode"><div class="pp-field-group"><label for="siren">SIREN</label><input type="text" id="siren" name="siren" placeholder="123 456 789" maxlength="9"></div><button type="button" class="pp-btn pp-btn-outline" onclick="setCreationMode()">En création</button><div id="siren-confirm" style="display:none"><div id="siren-name"></div><button onclick="confirmSiren()">Oui</button><button onclick="resetSiren()">Non</button></div></div><div id="creation-mode" style="display:none"><div class="pp-company-confirm">Création</div><select id="creation_secteur"><option value="">Secteur</option><option value="informatique">Info</option><option value="commerce">Commerce</option><option value="autre">Autre</option></select></div><div class="pp-btn-row"><button class="pp-btn pp-btn-primary" onclick="nextStep(1)">Continuer</button></div></div>
+        <div class="pp-step pp-active" data-step="1"><div class="pp-step-title">Votre entreprise</div><div class="pp-step-subtitle">SIREN ou création</div><div id="siren-mode"><div class="pp-field-group"><label for="siren">Numéro SIREN</label><input type="text" id="siren" name="siren" placeholder="123 456 789" maxlength="9"></div><button type="button" class="pp-btn pp-btn-outline" onclick="setCreationMode()">Je n'ai pas encore d'entreprise</button><div id="siren-confirm" style="display:none"><div id="siren-name"></div><button onclick="confirmSiren()">Oui</button><button onclick="resetSiren()">Non</button></div></div><div id="creation-mode" style="display:none"><div class="pp-company-confirm">Création</div><select id="creation_secteur"><option value="">Secteur</option><option value="informatique">Info</option><option value="commerce">Commerce</option><option value="autre">Autre</option></select></div><div class="pp-btn-row"><button class="pp-btn pp-btn-primary" onclick="nextStep(1)">Continuer</button></div></div>
 
         <div class="pp-step" data-step="2">
           <div class="pp-step-title">Votre projet de financement</div>
@@ -178,15 +178,6 @@
             </div>
           </div>
 
-          <div class="pp-btn-row">
-            <div class="pp-field-group"><label>Avez-vous déjà clôturé au moins un exercice fiscal ?</label><span class="pp-hint">Un exercice clos signifie que vous avez déposé vos comptes annuels.</span><div class="pp-radio-group"><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="1"> Oui</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="0"> Non</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="nsp"> Ne sais pas</label></div></div>
-<button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(4)">Retour</button>
-            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(4)">Continuer</button>
-          </div>
-        </div>
-
-        <!-- ===== ÉTAPE 6 — Situation & incidents ===== -->
-        <div class="pp-step" data-step="5">
           <div class="pp-step-title">Votre situation actuelle</div>
           <div class="pp-step-subtitle">Dernières vérifications. Ces éléments sont déterminants pour l'analyse.</div>
 
@@ -242,18 +233,18 @@
             </div>
           </div>
 
-          <div class="pp-btn-row">
-            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(5)">Retour</button>
-            <button type="button" class="pp-btn pp-btn-primary" onclick="submitForm()">
-              Continuer
-            </button>
+          
+<div class="pp-btn-row">
+            <div class="pp-field-group"><label>Avez-vous déjà clôturé au moins un exercice fiscal ?</label><span class="pp-hint">Un exercice clos = comptes annuels déposés.</span><div class="pp-step" data-step="5"><div class="pp-step-title">Vos coordonnées</div><div class="pp-step-subtitle">Dernière étape — recevez votre diagnostic</div><div class="pp-field-group"><label for="email">Email professionnel</label><input type="email" id="email" required><div class="pp-field-error" id="email-error">Email invalide</div></div><div class="pp-field-group"><label class="pp-checkbox-option"><input type="checkbox" id="rgpd_consent" required> J'accepte le traitement de mes données</label><div class="pp-field-error" id="rgpd-error">Requis</div></div><div class="pp-btn-row"><button class="pp-btn pp-btn-secondary" onclick="prevStep(5)">Retour</button><button class="pp-btn pp-btn-primary" onclick="submitForm()">Obtenir mon évaluation</button></div></div>
+
+        <div class="pp-radio-group"><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="1"> Oui</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="0"> Non</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="nsp"> Ne sais pas</label></div></div>
+<button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(4)">Retour</button>
+            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(4)">Continuer</button>
           </div>
         </div>
 
-        <!-- ===== VERDICT — Décision favorable ===== -->
-        <div class="pp-step" data-step="6"><div class="pp-step-title">Vos coordonnées</div><div class="pp-step-subtitle">Email pour recevoir les résultats</div><div class="pp-field-group"><label for="email">Email</label><input type="email" id="email" required><div class="pp-field-error" id="email-error">Email invalide</div></div><div class="pp-field-group"><label class="pp-checkbox-option"><input type="checkbox" id="rgpd_consent" required> J'accepte <a href="https://www.reki.eu/politique-de-confidentialite">Politique de confidentialité</a></label><div class="pp-field-error" id="rgpd-error">Requis</div></div><div class="pp-btn-row"><button class="pp-btn pp-btn-secondary" onclick="prevStep(6)">Retour</button><button class="pp-btn pp-btn-primary" onclick="submitForm()">Obtenir mon évaluation</button></div></div>
-
-        <div class="pp-step" data-step="verdict-favorable">
+        <!-- ===== ÉTAPE 6 — Situation & incidents ===== -->
+        data-step="verdict-favorable">
           <div class="pp-verdict">
             <div class="pp-verdict-icon" style="color: var(--success);">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -321,17 +312,14 @@
           </div>
         </div>
 
-      
       </form>
-
-      <div id="pp-verdict-screen" style="display:none;"><div class="pp-verdict"><div class="pp-verdict-icon" id="pp-verdict-icon"></div><h2 id="pp-verdict-title"></h2><p id="pp-verdict-msg"></p><div id="pp-verdict-estimations"></div><div class="pp-reasons-box"><ul id="pp-verdict-reasons"></ul></div><div class="pp-btn-row" style="flex-direction:column;gap:0.5rem;"><a href="https://www.reki.eu" class="pp-btn pp-btn-primary">Retour au site</a></div></div></div>
     </div>
   </section>`;
 document.getElementById('pp-form').innerHTML = FORM_HTML;
 
 // ============ State ============
     let currentStep = 1;
-    const totalSteps = 6;
+    const totalSteps = 5;
     let isCreation = false;
     let sirenConfirmed = false;
 
@@ -389,7 +377,7 @@ document.getElementById('pp-form').innerHTML = FORM_HTML;
     // ============ Validation ============
     function validateStep(step) {
       clearErrors();
-      if (step === 6) {
+      if (step === 5) {
         const email = document.getElementById('email');
         const rgpd = document.getElementById('rgpd_consent');
         let ok = true;
@@ -788,43 +776,20 @@ document.getElementById('pp-form').innerHTML = FORM_HTML;
     }
 
     function displayLocalVerdictWithNotice(verdict, data) {
-      const garanties = {
-        equipement: 'Gage / Réserve de propriété', travaux: 'Caution personnelle', immobilier: 'Hypothèque',
-        reprise: 'Nantissement FDC + Caution', bfr: 'Caution personnelle', tresorerie: 'Caution personnelle',
-        refinancement: 'Caution personnelle', developpement: 'Caution PP + BPI possible', creation: 'Caution PP + BPI possible'
-      };
-      const garantieTxt = garanties[data.project_type] || 'Caution personnelle';
-
-      switch (verdict.verdict) {
-        case 'decision_favorable':
-          if (verdict.sous_type === 'sous_conditions') {
-            document.getElementById('v-conditions-list').innerHTML = verdict.reasons.map(r => `<li>${r}</li>`).join('');
-            document.getElementById('v-conditions-score').innerHTML = buildScoreBar(verdict.score, verdict.scoreClass) + buildMetrics(verdict, data);
-            showStep('verdict-favorable-conditions');
-          } else {
-            document.getElementById('estimation-card').innerHTML = `
-              ${buildScoreBar(verdict.score, verdict.scoreClass)}
-              ${buildMetrics(verdict, data)}
-              <div style="margin-top:1rem; padding:0.75rem; background:var(--neural-000); border-radius:var(--radius-card);">
-                <div class="pp-estimation-row"><span class="pp-est-label">Garanties probables</span><span class="pp-est-value">${garantieTxt}</span></div>
-                <div class="pp-estimation-row" style="margin-top:0.3rem;"><span class="pp-est-label">Mensualité estimée</span><span class="pp-est-value">${verdict.newAnnualDebt ? Math.round(verdict.newAnnualDebt/12).toLocaleString('fr-FR') + ' €/mois' : '—'}</span></div>
-              </div>
-            `;
-            showStep('verdict-favorable');
-          }
-          break;
-        case 'etude_approfondie':
-          document.getElementById('v-analyse-reasons').innerHTML = verdict.reasons.map(r => `<li>${r}</li>`).join('');
-          document.getElementById('v-analyse-score').innerHTML = buildScoreBar(verdict.score, verdict.scoreClass) + (verdict.coverage ? buildMetrics(verdict, data) : '');
-          showStep('verdict-etude');
-          break;
-        case 'non_eligible':
-          document.getElementById('v-hp-reasons').innerHTML = verdict.reasons.map(r => `<li>${r}</li>`).join('');
-          showStep('verdict-non-eligible');
-          break;
-      }
-      const activeVerdict = document.querySelector('.pp-step.pp-active .verdict-notice');
-      if (activeVerdict) activeVerdict.style.display = 'block';
+      document.querySelectorAll('.pp-step').forEach(function(s){s.classList.remove('pp-active');});
+      var screen=document.getElementById('pp-verdict-screen');screen.style.display='block';
+      document.querySelector('.pp-progress').style.display='none';
+      var vType=verdict.verdict;
+      document.getElementById('pp-verdict-icon').innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+      document.getElementById('pp-verdict-icon').style.color='var(--warning)';
+      document.getElementById('pp-verdict-title').textContent='Estimation indicative';
+      document.getElementById('pp-verdict-msg').textContent=verdict.reasons.length>0?verdict.reasons[0]:'';
+      document.getElementById('pp-verdict-reasons').innerHTML=verdict.reasons.length>1?verdict.reasons.slice(1).map(function(r){return'<li>'+r+'</li>'}).join(''):'';
+      document.getElementById('pp-verdict-estimations').innerHTML='';
+      var badge=document.createElement('div');
+      badge.style.cssText='margin-top:1rem;padding:0.5rem 1rem;background:var(--brand-yellow-tag-bg);color:var(--brand-yellow-900);border-radius:var(--radius-pill);font-size:var(--fs-xs);text-align:center;';
+      badge.textContent='⚠ Estimation indicative';
+      document.getElementById('pp-verdict-estimations').appendChild(badge);
     }
 
     // ============ Pre-fill from URL params ============
