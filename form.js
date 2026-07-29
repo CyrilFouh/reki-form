@@ -433,11 +433,11 @@
       </form>
     </div>
   </section>`;
-  document.getElementByIddocument.getElementById('pp-form').innerHTML = FORM_HTML;
+  document.getElementById('pp-form').innerHTML = FORM_HTML;
 
 // ============ State ============
     let currentStep = 1;
-    const totalSteps = 6;
+    const totalSteps = 5;
     let isCreation = false;
     let sirenConfirmed = false;
 
