@@ -38,7 +38,7 @@
 
 /* === ETAPE 4 : Situation === */
 '<div class="pp-step" data-step="4"><div class="pp-step-title">Votre situation actuelle</div><div class="pp-step-subtitle">Dernieres verifications. Ces elements sont determinants pour l\'analyse.</div>'+
-'<div class="pp-field-group"><label>Avez-vous deja cloture au moins un exercice fiscal ?</label><span class="pp-hint">Un exercice clos = comptes annuels deposes.</span><div class="pp-radio-group"><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="1"> Oui</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="0"> Non</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="nsp"> Ne sais pas</label></div></div>'+
+'<div class="pp-field-group" id="exercice-clos-field"><label>Avez-vous deja cloture au moins un exercice fiscal ?</label><span class="pp-hint">Un exercice clos = comptes annuels deposes.</span><div class="pp-radio-group"><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="1"> Oui</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="0"> Non</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="nsp"> Ne sais pas</label></div></div>'+
 '<div class="pp-field-group" id="revenue-field"><label for="revenue_ttm">Quel est votre chiffre d\'affaires sur les 12 derniers mois ?</label><div class="pp-money-wrapper"><input type="number" id="revenue_ttm" name="revenue_ttm" placeholder="ex : 500 000" min="0"><span class="pp-currency">€</span></div></div>'+
 '<div class="pp-field-group" id="revenue-trend-field"><label>Comment votre chiffre d\'affaires evolue-t-il par rapport a l\'annee precedente ?</label><div class="pp-radio-group"><label class="pp-radio-option"><input type="radio" name="revenue_trend" value="hausse_forte"> Hausse de plus de 20 %</label><label class="pp-radio-option"><input type="radio" name="revenue_trend" value="hausse_moderee"> Hausse de 5 a 20 %</label><label class="pp-radio-option"><input type="radio" name="revenue_trend" value="stable"> Stable (−5 % a +5 %)</label><label class="pp-radio-option"><input type="radio" name="revenue_trend" value="baisse_moderee"> Baisse de 5 a 20 %</label><label class="pp-radio-option"><input type="radio" name="revenue_trend" value="baisse_forte"> Baisse de plus de 20 %</label><label class="pp-radio-option"><input type="radio" name="revenue_trend" value="nsp"> Je ne sais pas / Trop recent</label></div></div>'+
 '<div class="pp-field-group" id="cashgen-field"><label for="annual_cash_generation">Quel montant votre activite genere-t-elle chaque annee avant remboursement d\'emprunts ?</label><span class="pp-hint">EBE, CAF ou capacite d\'autofinancement. En cas de doute, laissez vide.</span><div class="pp-money-wrapper"><input type="number" id="annual_cash_generation" name="annual_cash_generation" placeholder="ex : 80 000 (ou laisser vide)"><span class="pp-currency">€</span></div><div style="margin-top:0.5rem;"><label class="pp-checkbox-option"><input type="checkbox" id="cashgen_nsp" name="cashgen_nsp"> Je ne connais pas ce montant</label></div></div>'+
@@ -93,6 +93,8 @@
     isCreation = true;
     document.getElementById('siren-mode').style.display = 'none';
     document.getElementById('creation-mode').style.display = 'block';
+    var ecf = document.getElementById('exercice-clos-field');
+    if (ecf) ecf.style.display = 'none';
   }
 
   function confirmSiren() { sirenConfirmed = true; }
@@ -161,7 +163,7 @@
       }
     }
     if (from === 3) {
-      var financialFields = document.querySelectorAll('#revenue-field, #revenue-trend-field, #cashgen-field, #debt-field, #cashpos-field');
+      var financialFields = document.querySelectorAll('#revenue-field, #revenue-trend-field, #cashgen-field, #debt-field, #cashpos-field, #exercice-clos-field');
       for (var i = 0; i < financialFields.length; i++) {
         financialFields[i].style.display = isCreation ? 'none' : 'block';
       }
