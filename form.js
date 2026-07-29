@@ -65,7 +65,26 @@
             </div>
             <div class="pp-field-group">
               <label for="creation_secteur">Dans quel secteur allez-vous exercer ?</label>
-              <select id="creation_secteur" name="creation_secteur"><div class="pp-step" data-step="2">
+              <select id="creation_secteur" name="creation_secteur">
+                <option value="">Sélectionnez un secteur</option>
+                <option value="informatique">Informatique / Numérique</option>
+                <option value="commerce">Commerce / Distribution</option>
+                <option value="industrie">Industrie / Production</option>
+                <option value="btp">BTP / Construction</option>
+                <option value="services">Services aux entreprises</option>
+                <option value="sante">Santé / Médical</option>
+                <option value="hotellerie">Hôtellerie / Restauration</option>
+                <option value="transport">Transport / Logistique</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+          </div>
+          <div class="pp-btn-row">
+            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(1)">Continuer</button>
+          </div>
+        </div>
+
+        <div class="pp-step" data-step="2">
           <div class="pp-step-title">Votre projet de financement</div>
           <div class="pp-step-subtitle">Décrivez votre besoin pour que nous puissions évaluer sa compatibilité.</div>
 
@@ -205,7 +224,18 @@
           </div>
 
           <div class="pp-btn-row">
-            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(4)">Retour</button>
+            
+          <div class="pp-field-group">
+            <label>Avez-vous déjà clôturé au moins un exercice fiscal ?</label>
+            <span class="pp-hint">Un exercice clos signifie que vous avez déposé vos comptes annuels au moins une fois.</span>
+            <div class="pp-radio-group">
+              <label class="pp-radio-option"><input type="radio" name="exercice_clos" value="1"> Oui, au moins un exercice clos</label>
+              <label class="pp-radio-option"><input type="radio" name="exercice_clos" value="0"> Non, pas encore d'exercice clos</label>
+              <label class="pp-radio-option"><input type="radio" name="exercice_clos" value="nsp"> Je ne sais pas</label>
+            </div>
+          </div>
+
+<button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(4)">Retour</button>
             <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(4)">Continuer</button>
           </div>
         </div>
@@ -268,18 +298,7 @@
           </div>
 
           <div class="pp-btn-row">
-            
-          <div class="pp-field-group">
-            <label>Avez-vous déjà clôturé au moins un exercice fiscal ?</label>
-            <span class="pp-hint">Un exercice clos signifie que vous avez déposé vos comptes annuels au moins une fois.</span>
-            <div class="pp-radio-group">
-              <label class="pp-radio-option"><input type="radio" name="exercice_clos" value="1"> Oui, au moins un exercice clos</label>
-              <label class="pp-radio-option"><input type="radio" name="exercice_clos" value="0"> Non, pas encore d'exercice clos</label>
-              <label class="pp-radio-option"><input type="radio" name="exercice_clos" value="nsp"> Je ne sais pas</label>
-            </div>
-          </div>
-
-<button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(5)">Retour</button>
+            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(5)">Retour</button>
             <button type="button" class="pp-btn pp-btn-primary" onclick="submitForm()">
               Continuer
             </button>
@@ -394,56 +413,7 @@
       <div class="pp-footer-links">
         <a href="mailto:contact@reki.eu">Contact</a>
       </div>
-      <div class="pp-step pp-active" data-step="1">
-          <div class="pp-step-title">Votre entreprise</div>
-          <div class="pp-step-subtitle">Entrez votre SIREN. Si vous n'avez pas encore d'entreprise, laissez le champ vide.</div>
-          <div id="pp-siren-mode">
-            <div class="pp-field-group">
-              <label for="siren">Numéro SIREN de votre entreprise</label>
-              <span class="pp-hint">9 chiffres — nous préremplirons les informations publiques</span>
-              <input type="text" id="siren" name="siren" placeholder="ex : 123 456 789" maxlength="9" autocomplete="off" inputmode="numeric" pattern="[0-9]{9}">
-            </div>
-            <div class="pp-field-group" style="margin-top:-0.25rem;">
-              <button type="button" class="pp-btn pp-btn-outline" onclick="setCreationMode()" style="width:auto; font-size:var(--pp-fs-s);">
-                Mon entreprise est en cours de création
-              </button>
-            </div>
-            <div id="pp-siren-confirm" style="display:none;" class="pp-company-confirm">
-              <div class="pp-name" id="pp-siren-name">—</div>
-              <div class="pp-info" id="pp-siren-info">—</div>
-              <div style="margin-top:0.75rem; display:flex; gap:0.5rem;">
-                <button type="button" class="pp-btn pp-btn-outline" onclick="confirmSiren()" style="font-size:var(--pp-fs-s); flex:1;">Oui, c'est mon entreprise</button>
-                <button type="button" class="pp-btn pp-btn-secondary" onclick="resetSiren()" style="font-size:var(--pp-fs-s); flex:1;">Non, modifier le SIREN</button>
-              </div>
-            </div>
-          </div>
-          <div id="pp-creation-mode" style="display:none;">
-            <div class="pp-company-confirm">
-              <div class="pp-name">Entreprise en création</div>
-              <div class="pp-info">Parcours adapté aux porteurs de projet sans entreprise encore immatriculée.</div>
-            </div>
-            <div class="pp-field-group">
-              <label for="creation_secteur">Dans quel secteur allez-vous exercer ?</label>
-              <select id="creation_secteur" name="creation_secteur">
-                <option value="">Sélectionnez un secteur</option>
-                <option value="informatique">Informatique / Numérique</option>
-                <option value="commerce">Commerce / Distribution</option>
-                <option value="industrie">Industrie / Production</option>
-                <option value="btp">BTP / Construction</option>
-                <option value="services">Services aux entreprises</option>
-                <option value="sante">Santé / Médical</option>
-                <option value="hotellerie">Hôtellerie / Restauration</option>
-                <option value="transport">Transport / Logistique</option>
-                <option value="autre">Autre</option>
-              </select>
-            </div>
-          </div>
-          <div class="pp-btn-row">
-            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(1)">Continuer</button>
-          </div>
-        </div>
-
-        <div class="pp-footer-copy">© 2026 Reki. Tous droits réservés.</div>
+      <div class="pp-footer-copy">© 2026 Reki. Tous droits réservés.</div>
     </div>
   </footer>`;
   document.getElementById('pp-form').innerHTML = FORM_HTML;
@@ -508,7 +478,7 @@
     // ============ Validation ============
     function validateStep(step) {
       clearErrors();
-      if (step === 1) {
+      if (step === 6) {
         const email = document.getElementById('email');
         const rgpd = document.getElementById('rgpd_consent');
         let ok = true;
