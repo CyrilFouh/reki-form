@@ -6,8 +6,7 @@
   'use strict';
 
   // ── Build form HTML ──
-  var FORM_HTML = `<nav class="pp-navbar">
-    <div class="pp-navbar-inner">
+  var FORM_HTML = `<nav class="pp-navbar">    <div class="pp-navbar-inner">
       <a href="https://www.reki.eu" class="pp-navbar-logo" aria-label="Reki">
         <img src="https://cdn.prod.website-files.com/66e83aa7dfde79e2181aec17/67f643c671467ca4c3c34118_LOGO_WEBCLIP.png" alt="Reki" class="pp-logo-icon">
         <img src="https://cdn.prod.website-files.com/66e83aa7dfde79e2181aec17/67f64110b3be61bad2bbe5b1_TEXT@2x.svg" alt="Reki" class="pp-logo-text">
@@ -37,9 +36,121 @@
       <form id="rekiForm" novalidate>
 
         <!-- ===== ÉTAPE 1 — Identification ===== -->
-        <div class="pp-step pp-active" data-step="1"><div class="pp-step-title">Votre entreprise</div><div class="pp-step-subtitle">SIREN ou création</div><div id="siren-mode"><div class="pp-field-group"><label for="siren">Numéro SIREN</label><input type="text" id="siren" name="siren" placeholder="123 456 789" maxlength="9"></div><button type="button" class="pp-btn pp-btn-outline" onclick="setCreationMode()">Je n'ai pas encore d'entreprise</button><div id="siren-confirm" style="display:none"><div id="siren-name"></div><button onclick="confirmSiren()">Oui</button><button onclick="resetSiren()">Non</button></div></div><div id="creation-mode" style="display:none"><div class="pp-company-confirm">Création</div><select id="creation_secteur"><option value="">Secteur</option><option value="informatique">Info</option><option value="commerce">Commerce</option><option value="autre">Autre</option></select></div><div class="pp-btn-row"><button class="pp-btn pp-btn-primary" onclick="nextStep(1)">Continuer</button></div></div>
+        <div class="pp-step pp-active" data-step="1">
+          <div class="pp-step-title">Commençons par vous identifier</div>
+          <div class="pp-step-subtitle">Votre email nous permet de vous envoyer les résultats de l'évaluation.</div>
+          <div class="pp-field-group">
+            <label for="email">Votre adresse e-mail professionnelle</label>
+            <input type="email" id="email" name="email" placeholder="prenom@entreprise.fr" required>
+            <div class="pp-field-error" id="email-error">Veuillez entrer une adresse email valide.</div>
+          </div>
+          <div class="pp-field-group">
+            <div class="pp-checkbox-option" id="rgpd-wrap">
+              <input type="checkbox" id="rgpd_consent" name="rgpd_consent" required>
+              <label for="rgpd_consent" style="margin-bottom:0; font-weight:400; cursor:pointer;">
+                J'accepte que Reki traite mes données pour évaluer l'éligibilité de mon projet. Reki enrichit le dossier à partir de données publiques (Pappers/Infogreffe).
+                <a href="https://www.reki.eu/politique-de-confidentialite" target="_blank" style="color:var(--brand-yellow-900); text-decoration:underline;">Politique de confidentialité</a>
+              </label>
+            </div>
+            <div class="pp-field-error" id="rgpd-error">Vous devez accepter pour continuer.</div>
+          </div>
+          <div class="pp-btn-row">
+            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(1)">Continuer</button>
+          </div>
+        </div>
 
+        <!-- ===== ÉTAPE 2 — Entreprise ===== -->
         <div class="pp-step" data-step="2">
+          <div class="pp-step-title">Votre entreprise</div>
+          <div class="pp-step-subtitle">Entrez votre SIREN. Si vous n'avez pas encore d'entreprise, laissez le champ vide.</div>
+
+          <!-- Mode SIREN -->
+          <div id="siren-mode">
+            <div class="pp-field-group">
+              <label for="siren">Numéro SIREN de votre entreprise</label>
+              <span class="pp-hint">9 chiffres — nous préremplirons les informations publiques</span>
+              <input type="text" id="siren" name="siren" placeholder="ex : 123 456 789" maxlength="9" autocomplete="off" inputmode="numeric" pattern="[0-9]{9}">
+            </div>
+            <div class="pp-field-group" style="margin-top:-0.25rem;">
+              <button type="button" class="pp-btn pp-btn-outline" onclick="setCreationMode()" style="width:auto; font-size:var(--fs-s);">
+                Mon entreprise est en cours de création
+              </button>
+            </div>
+            <!-- Bloc confirmation SIREN (masqué par défaut) -->
+            <div id="siren-confirm" style="display:none;" class="pp-company-confirm">
+              <div class="pp-company-name" id="siren-name">—</div>
+              <div class="pp-company-info" id="siren-info">—</div>
+              <div style="margin-top:0.75rem; display:flex; gap:0.5rem;">
+                <button type="button" class="pp-btn pp-btn-outline" onclick="confirmSiren()" style="font-size:var(--fs-s); flex:1;">Oui, c'est mon entreprise</button>
+                <button type="button" class="pp-btn pp-btn-secondary" onclick="resetSiren()" style="font-size:var(--fs-s); flex:1;">Non, modifier le SIREN</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode CRÉATION (masqué par défaut) -->
+          <div id="creation-mode" style="display:none;">
+            <div class="pp-company-confirm">
+              <div class="pp-company-name">Entreprise en création</div>
+              <div class="pp-company-info">Parcours adapté aux porteurs de projet sans entreprise encore immatriculée.</div>
+            </div>
+            <div class="pp-field-group">
+              <label for="creation_secteur">Dans quel secteur allez-vous exercer ?</label>
+              <select id="creation_secteur" name="creation_secteur">
+                <option value="" disabled selected>Choisir un secteur</option>
+                <option value="restauration">Restauration</option>
+                <option value="commerce">Commerce de détail</option>
+                <option value="services">Services aux entreprises</option>
+                <option value="btp">BTP — Construction</option>
+                <option value="sante">Santé — Bien-être</option>
+                <option value="artisanat">Artisanat</option>
+                <option value="franchise">Franchise</option>
+                <option value="tech">Tech — Digital</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            <div class="pp-field-group">
+              <label for="creation_experience">Avez-vous de l'expérience dans ce secteur ?</label>
+              <select id="creation_experience" name="creation_experience">
+                <option value="" disabled selected>Choisir</option>
+                <option value="5+">Oui, plus de 5 ans</option>
+                <option value="2-5">Oui, 2 à 5 ans</option>
+                <option value="1-2">Oui, 1 à 2 ans</option>
+                <option value="associe">Non, mais un associé expérimenté rejoint le projet</option>
+                <option value="non">Non</option>
+              </select>
+            </div>
+            <div class="pp-field-group">
+              <label for="creation_apport_pct">Quel pourcentage d'apport personnel pouvez-vous mobiliser ?</label>
+              <div class="pp-radio-group">
+                <label class="pp-radio-option"><input type="radio" name="creation_apport_pct" value="<10%"> Moins de 10 %</label>
+                <label class="pp-radio-option"><input type="radio" name="creation_apport_pct" value="10-20%"> 10 – 20 %</label>
+                <label class="pp-radio-option"><input type="radio" name="creation_apport_pct" value="20-30%"> 20 – 30 %</label>
+                <label class="pp-radio-option"><input type="radio" name="creation_apport_pct" value=">30%"> Plus de 30 %</label>
+              </div>
+            </div>
+            <div class="pp-field-group">
+              <label for="creation_preuves">Quelles preuves concrètes avez-vous déjà obtenues ?</label>
+              <span class="pp-hint">Cochez tout ce qui s'applique</span>
+              <div class="pp-checkbox-group" id="creation-preuves-group">
+                <label class="pp-checkbox-option"><input type="checkbox" name="creation_preuves" value="contrats"> Contrats ou commandes signés</label>
+                <label class="pp-checkbox-option"><input type="checkbox" name="creation_preuves" value="lettres"> Lettres d'intention</label>
+                <label class="pp-checkbox-option"><input type="checkbox" name="creation_preuves" value="ca_deja"> Chiffre d'affaires déjà réalisé</label>
+                <label class="pp-checkbox-option"><input type="checkbox" name="creation_preuves" value="franchise_reseau"> Franchise ou réseau existant</label>
+                <label class="pp-checkbox-option"><input type="checkbox" name="creation_preuves" value="devis"> Devis fournisseurs</label>
+                <label class="pp-checkbox-option"><input type="checkbox" name="creation_preuves" value="etude"> Étude de marché seulement</label>
+                <label class="pp-checkbox-option"><input type="checkbox" name="creation_preuves" value="aucune"> Aucune preuve à ce stade</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="pp-btn-row">
+            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(2)">Retour</button>
+            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(2)">Continuer</button>
+          </div>
+        </div>
+
+        <!-- ===== ÉTAPE 3 — Projet ===== -->
+        <div class="pp-step" data-step="3">
           <div class="pp-step-title">Votre projet de financement</div>
           <div class="pp-step-subtitle">Décrivez votre besoin pour que nous puissions évaluer sa compatibilité.</div>
 
@@ -79,13 +190,13 @@
           </div>
 
           <div class="pp-btn-row">
-            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(2)">Retour</button>
-            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(2)">Continuer</button>
+            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(3)">Retour</button>
+            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(3)">Continuer</button>
           </div>
         </div>
 
         <!-- ===== ÉTAPE 4 — Financement ===== -->
-        <div class="pp-step" data-step="3">
+        <div class="pp-step" data-step="4">
           <div class="pp-step-title">Votre plan de financement</div>
           <div class="pp-step-subtitle">L'apport personnel est un élément clé pour les partenaires bancaires.</div>
 
@@ -127,13 +238,13 @@
           </div>
 
           <div class="pp-btn-row">
-            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(3)">Retour</button>
-            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(3)">Continuer</button>
+            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(4)">Retour</button>
+            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(4)">Continuer</button>
           </div>
         </div>
 
         <!-- ===== ÉTAPE 5 — Activité financière ===== -->
-        <div class="pp-step" data-step="4">
+        <div class="pp-step" data-step="5">
           <div class="pp-step-title">Votre activité financière</div>
           <div class="pp-step-subtitle">Ces données permettent d'évaluer la capacité de remboursement. Répondez au mieux.</div>
 
@@ -178,6 +289,14 @@
             </div>
           </div>
 
+          <div class="pp-btn-row">
+            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(5)">Retour</button>
+            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(5)">Continuer</button>
+          </div>
+        </div>
+
+        <!-- ===== ÉTAPE 6 — Situation & incidents ===== -->
+        <div class="pp-step" data-step="6">
           <div class="pp-step-title">Votre situation actuelle</div>
           <div class="pp-step-subtitle">Dernières vérifications. Ces éléments sont déterminants pour l'analyse.</div>
 
@@ -233,18 +352,17 @@
             </div>
           </div>
 
-          
-<div class="pp-btn-row">
-            <div class="pp-field-group"><label>Avez-vous déjà clôturé au moins un exercice fiscal ?</label><span class="pp-hint">Un exercice clos = comptes annuels déposés.</span><div class="pp-step" data-step="5"><div class="pp-step-title">Vos coordonnées</div><div class="pp-step-subtitle">Dernière étape — recevez votre diagnostic</div><div class="pp-field-group"><label for="email">Email professionnel</label><input type="email" id="email" required><div class="pp-field-error" id="email-error">Email invalide</div></div><div class="pp-field-group"><label class="pp-checkbox-option"><input type="checkbox" id="rgpd_consent" required> J'accepte le traitement de mes données</label><div class="pp-field-error" id="rgpd-error">Requis</div></div><div class="pp-btn-row"><button class="pp-btn pp-btn-secondary" onclick="prevStep(5)">Retour</button><button class="pp-btn pp-btn-primary" onclick="submitForm()">Obtenir mon évaluation</button></div></div>
-
-        <div class="pp-radio-group"><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="1"> Oui</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="0"> Non</label><label class="pp-radio-option"><input type="radio" name="exercice_clos" value="nsp"> Ne sais pas</label></div></div>
-<button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(4)">Retour</button>
-            <button type="button" class="pp-btn pp-btn-primary" onclick="nextStep(4)">Continuer</button>
+          <div class="pp-btn-row">
+            <button type="button" class="pp-btn pp-btn-secondary" onclick="prevStep(6)">Retour</button>
+            <button type="button" class="pp-btn pp-btn-primary" onclick="submitForm()">
+              Obtenir mon pré-diagnostic
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 5"/></svg>
+            </button>
           </div>
         </div>
 
-        <!-- ===== ÉTAPE 6 — Situation & incidents ===== -->
-        data-step="verdict-favorable">
+        <!-- ===== VERDICT — Décision favorable ===== -->
+        <div class="pp-step" data-step="verdict-favorable">
           <div class="pp-verdict">
             <div class="pp-verdict-icon" style="color: var(--success);">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -315,11 +433,11 @@
       </form>
     </div>
   </section>`;
-document.getElementById('pp-form').innerHTML = FORM_HTML;
+  document.getElementByIddocument.getElementById('pp-form').innerHTML = FORM_HTML;
 
 // ============ State ============
     let currentStep = 1;
-    const totalSteps = 5;
+    const totalSteps = 6;
     let isCreation = false;
     let sirenConfirmed = false;
 
@@ -377,7 +495,7 @@ document.getElementById('pp-form').innerHTML = FORM_HTML;
     // ============ Validation ============
     function validateStep(step) {
       clearErrors();
-      if (step === 5) {
+      if (step === 1) {
         const email = document.getElementById('email');
         const rgpd = document.getElementById('rgpd_consent');
         let ok = true;
@@ -523,7 +641,7 @@ document.getElementById('pp-form').innerHTML = FORM_HTML;
       return {
         entreprise: { siren: data.siren || '', raison_sociale: '', forme_juridique: '', secteur_naf: data.isCreation ? (data.creation_secteur || '') : '', date_creation: '', anciennete_annees: 0 },
         contact: { nom: '', email: document.getElementById('email')?.value || '', telephone: '', consentement_rgpd: document.getElementById('rgpd_consent')?.checked || false },
-        financier: { ca_annuel: data.revenue_ttm || null, ebe_annuel: data.cashgen_unknown ? null : (data.annual_cash_generation || null), dette_financiere: data.existing_debt_service || null, tresorerie_nette: null, exercices_clos: data.isCreation ? 0 : parseInt(document.querySelector('input[name="exercice_clos"]:checked')?.value || '0'), capitaux_propres: null, revenue_trend: data.revenue_trend || 'stable' },
+        financier: { ca_annuel: data.revenue_ttm || null, ebe_annuel: data.cashgen_unknown ? null : (data.annual_cash_generation || null), dette_financiere: data.existing_debt_service || null, tresorerie_nette: null, exercices_clos: data.isCreation ? 0 : 1, capitaux_propres: null, revenue_trend: data.revenue_trend || 'stable' },
         projet: { objet_pret: data.project_type || 'autre', montant_demande: data.requested_amount || 0, apport_personnel: data.available_contribution || 0, duree_souhaitee: 7 },
         flags: { procedure_collective: adv.includes('procedure_collective'), liquidation_judiciaire: adv.includes('liquidation'), retards_fiscaux: adv.includes('retards_fiscaux'), retards_sociaux: adv.includes('retards_sociaux'), rejets_bancaires: adv.includes('rejets_bancaires'), echeancier_en_cours: adv.includes('echeancier') }
       };
@@ -760,36 +878,75 @@ document.getElementById('pp-form').innerHTML = FORM_HTML;
     }
 
     function displayServerVerdict(server, data) {
-      document.querySelectorAll('.pp-step').forEach(function(s){s.classList.remove('pp-active');});
-      var screen=document.getElementById('pp-verdict-screen');screen.style.display='block';
-      document.querySelector('.pp-progress').style.display='none';
-      var est=server.estimations||{};var motifs=server.motifs||[];var v=server.verdict;
-      var icons={decision_favorable:'<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',etude_approfondie:'<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',non_eligible:'<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'};
-      var colors={decision_favorable:'var(--success)',etude_approfondie:'var(--warning)',non_eligible:'var(--neural-500)'};
-      var titles={decision_favorable:'Decision de principe favorable',etude_approfondie:'Etude approfondie necessaire',non_eligible:'Projet hors perimetre actuel'};
-      var icon=icons[v]||icons.etude_approfondie,color=colors[v]||colors.etude_approfondie,title=titles[v]||titles.etude_approfondie;
-      if(server.sous_type==='sous_conditions'){title='Decision de principe favorable, sous reserve';icon='<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';color='var(--brand-yellow-800)';}
-      document.getElementById('pp-verdict-icon').innerHTML=icon;document.getElementById('pp-verdict-icon').style.color=color;
-      document.getElementById('pp-verdict-title').textContent=title;document.getElementById('pp-verdict-msg').textContent=motifs.length>0?motifs[0]:'';
-      document.getElementById('pp-verdict-reasons').innerHTML=motifs.length>1?motifs.slice(1).map(function(r){return'<li>'+r+'</li>'}).join(''):'';
-      document.getElementById('pp-verdict-estimations').innerHTML=est.montant_financable>0?buildServerEstimations(est):'';
+      document.querySelectorAll('.verdict-notice').forEach(el => el.style.display = 'none');
+      const est = server.estimations || {};
+      const motifs = server.motifs || [];
+
+      switch (server.verdict) {
+        case 'decision_favorable':
+          if (server.sous_type === 'sous_conditions') {
+            document.getElementById('v-conditions-list').innerHTML = motifs.map(r => `<li>${r}</li>`).join('');
+            document.getElementById('v-conditions-score').innerHTML = '';
+            showStep('verdict-favorable-conditions');
+          } else {
+            document.getElementById('v-favorable-msg').textContent = motifs.length > 0 ? motifs[0] : 'Les informations communiquées sont compatibles avec les principaux critères analysés.';
+            document.getElementById('estimation-card').innerHTML = buildServerEstimations(est);
+            showStep('verdict-favorable');
+          }
+          break;
+        case 'etude_approfondie':
+          document.getElementById('v-analyse-reasons').innerHTML = motifs.map(r => `<li>${r}</li>`).join('');
+          document.getElementById('v-analyse-score').innerHTML = '';
+          showStep('verdict-etude');
+          break;
+        case 'non_eligible':
+          document.getElementById('v-hp-reasons').innerHTML = motifs.map(r => `<li>${r}</li>`).join('');
+          showStep('verdict-non-eligible');
+          break;
+        default:
+          const local = computeVerdict(data);
+          displayLocalVerdictWithNotice(local, data);
+      }
     }
 
     function displayLocalVerdictWithNotice(verdict, data) {
-      document.querySelectorAll('.pp-step').forEach(function(s){s.classList.remove('pp-active');});
-      var screen=document.getElementById('pp-verdict-screen');screen.style.display='block';
-      document.querySelector('.pp-progress').style.display='none';
-      var vType=verdict.verdict;
-      document.getElementById('pp-verdict-icon').innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
-      document.getElementById('pp-verdict-icon').style.color='var(--warning)';
-      document.getElementById('pp-verdict-title').textContent='Estimation indicative';
-      document.getElementById('pp-verdict-msg').textContent=verdict.reasons.length>0?verdict.reasons[0]:'';
-      document.getElementById('pp-verdict-reasons').innerHTML=verdict.reasons.length>1?verdict.reasons.slice(1).map(function(r){return'<li>'+r+'</li>'}).join(''):'';
-      document.getElementById('pp-verdict-estimations').innerHTML='';
-      var badge=document.createElement('div');
-      badge.style.cssText='margin-top:1rem;padding:0.5rem 1rem;background:var(--brand-yellow-tag-bg);color:var(--brand-yellow-900);border-radius:var(--radius-pill);font-size:var(--fs-xs);text-align:center;';
-      badge.textContent='⚠ Estimation indicative';
-      document.getElementById('pp-verdict-estimations').appendChild(badge);
+      const garanties = {
+        equipement: 'Gage / Réserve de propriété', travaux: 'Caution personnelle', immobilier: 'Hypothèque',
+        reprise: 'Nantissement FDC + Caution', bfr: 'Caution personnelle', tresorerie: 'Caution personnelle',
+        refinancement: 'Caution personnelle', developpement: 'Caution PP + BPI possible', creation: 'Caution PP + BPI possible'
+      };
+      const garantieTxt = garanties[data.project_type] || 'Caution personnelle';
+
+      switch (verdict.verdict) {
+        case 'decision_favorable':
+          if (verdict.sous_type === 'sous_conditions') {
+            document.getElementById('v-conditions-list').innerHTML = verdict.reasons.map(r => `<li>${r}</li>`).join('');
+            document.getElementById('v-conditions-score').innerHTML = buildScoreBar(verdict.score, verdict.scoreClass) + buildMetrics(verdict, data);
+            showStep('verdict-favorable-conditions');
+          } else {
+            document.getElementById('estimation-card').innerHTML = `
+              ${buildScoreBar(verdict.score, verdict.scoreClass)}
+              ${buildMetrics(verdict, data)}
+              <div style="margin-top:1rem; padding:0.75rem; background:var(--neural-000); border-radius:var(--radius-card);">
+                <div class="pp-estimation-row"><span class="pp-est-label">Garanties probables</span><span class="pp-est-value">${garantieTxt}</span></div>
+                <div class="pp-estimation-row" style="margin-top:0.3rem;"><span class="pp-est-label">Mensualité estimée</span><span class="pp-est-value">${verdict.newAnnualDebt ? Math.round(verdict.newAnnualDebt/12).toLocaleString('fr-FR') + ' €/mois' : '—'}</span></div>
+              </div>
+            `;
+            showStep('verdict-favorable');
+          }
+          break;
+        case 'etude_approfondie':
+          document.getElementById('v-analyse-reasons').innerHTML = verdict.reasons.map(r => `<li>${r}</li>`).join('');
+          document.getElementById('v-analyse-score').innerHTML = buildScoreBar(verdict.score, verdict.scoreClass) + (verdict.coverage ? buildMetrics(verdict, data) : '');
+          showStep('verdict-etude');
+          break;
+        case 'non_eligible':
+          document.getElementById('v-hp-reasons').innerHTML = verdict.reasons.map(r => `<li>${r}</li>`).join('');
+          showStep('verdict-non-eligible');
+          break;
+      }
+      const activeVerdict = document.querySelector('.pp-step.pp-active .verdict-notice');
+      if (activeVerdict) activeVerdict.style.display = 'block';
     }
 
     // ============ Pre-fill from URL params ============
