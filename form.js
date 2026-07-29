@@ -622,14 +622,43 @@
       }
     });
 
-    // ============ SUBMIT — Verdict Engine ============
+    // ============ SUBMIT — API Server + Fallback Local ============
+    const API_LEAD_URL = 'https://pro.reki.eu/api/lead';
+    const API_TIMEOUT_MS = 8000;
+
     function submitForm() {
-      // Hide progress
       document.querySelector('.pp-progress').style.display = 'none';
 
       const data = collectData();
-      const verdict = computeVerdict(data);
-      displayVerdict(verdict, data);
+      const payload = buildApiPayload(data);
+
+      const submitBtn = document.querySelector('#step-6-submit');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Analyse en cours...'; }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+
+      fetch(API_LEAD_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      })
+      .then(response => { clearTimeout(timeoutId); if (!response.ok) throw new Error('API error ' + response.status); return response.json(); })
+      .then(serverVerdict => { displayServerVerdict(serverVerdict, data); })
+      .catch(err => { clearTimeout(timeoutId); console.warn('API indisponible — fallback local:', err.message); const localVerdict = computeVerdict(data); displayLocalVerdictWithNotice(localVerdict, data); })
+      .finally(() => { if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Obtenir mon pré-diagnostic'; } });
+    }
+
+    function buildApiPayload(data) {
+      const adv = data.adverse_events || [];
+      return {
+        entreprise: { siren: data.siren || '', raison_sociale: '', forme_juridique: '', secteur_naf: data.isCreation ? (data.creation_secteur || '') : '', date_creation: '', anciennete_annees: 0 },
+        contact: { nom: '', email: document.getElementById('email')?.value || '', telephone: '', consentement_rgpd: document.getElementById('rgpd_consent')?.checked || false },
+        financier: { ca_annuel: data.revenue_ttm || null, ebe_annuel: data.cashgen_unknown ? null : (data.annual_cash_generation || null), dette_financiere: data.existing_debt_service || null, tresorerie_nette: null, exercices_clos: data.isCreation ? 0 : 1, capitaux_propres: null, revenue_trend: data.revenue_trend || 'stable' },
+        projet: { objet_pret: data.project_type || 'autre', montant_demande: data.requested_amount || 0, apport_personnel: data.available_contribution || 0, duree_souhaitee: 7 },
+        flags: { procedure_collective: adv.includes('procedure_collective'), liquidation_judiciaire: adv.includes('liquidation'), retards_fiscaux: adv.includes('retards_fiscaux'), retards_sociaux: adv.includes('retards_sociaux'), rejets_bancaires: adv.includes('rejets_bancaires'), echeancier_en_cours: adv.includes('echeancier') }
+      };
     }
 
     function collectData() {
@@ -853,7 +882,48 @@
         </div>`;
     }
 
-    function displayVerdict(verdict, data) {
+    function buildServerEstimations(est) {
+      const mt = est.montant_finançable || 0;
+      return `
+        <div class="pp-estimation-row"><span class="pp-est-label">Montant finançable estimé</span><span class="pp-est-value">${mt.toLocaleString('fr-FR')} €</span></div>
+        <div class="pp-estimation-row"><span class="pp-est-label">Durée indicative</span><span class="pp-est-value">${est.duree || '—'}</span></div>
+        <div class="pp-estimation-row"><span class="pp-est-label">Garanties probables</span><span class="pp-est-value">${est.garanties || '—'}</span></div>
+        <div class="pp-estimation-row"><span class="pp-est-label">Mensualité estimée</span><span class="pp-est-value">${est.mensualite ? Math.round(est.mensualite).toLocaleString('fr-FR') + ' €/mois' : '—'}</span></div>`;
+    }
+
+    function displayServerVerdict(server, data) {
+      document.querySelectorAll('.verdict-notice').forEach(el => el.style.display = 'none');
+      const est = server.estimations || {};
+      const motifs = server.motifs || [];
+
+      switch (server.verdict) {
+        case 'decision_favorable':
+          if (server.sous_type === 'sous_conditions') {
+            document.getElementById('v-conditions-list').innerHTML = motifs.map(r => `<li>${r}</li>`).join('');
+            document.getElementById('v-conditions-score').innerHTML = '';
+            showStep('verdict-favorable-conditions');
+          } else {
+            document.getElementById('v-favorable-msg').textContent = motifs.length > 0 ? motifs[0] : 'Les informations communiquées sont compatibles avec les principaux critères analysés.';
+            document.getElementById('estimation-card').innerHTML = buildServerEstimations(est);
+            showStep('verdict-favorable');
+          }
+          break;
+        case 'etude_approfondie':
+          document.getElementById('v-analyse-reasons').innerHTML = motifs.map(r => `<li>${r}</li>`).join('');
+          document.getElementById('v-analyse-score').innerHTML = '';
+          showStep('verdict-etude');
+          break;
+        case 'non_eligible':
+          document.getElementById('v-hp-reasons').innerHTML = motifs.map(r => `<li>${r}</li>`).join('');
+          showStep('verdict-non-eligible');
+          break;
+        default:
+          const local = computeVerdict(data);
+          displayLocalVerdictWithNotice(local, data);
+      }
+    }
+
+    function displayLocalVerdictWithNotice(verdict, data) {
       const garanties = {
         equipement: 'Gage / Réserve de propriété', travaux: 'Caution personnelle', immobilier: 'Hypothèque',
         reprise: 'Nantissement FDC + Caution', bfr: 'Caution personnelle', tresorerie: 'Caution personnelle',
@@ -889,6 +959,8 @@
           showStep('verdict-non-eligible');
           break;
       }
+      const activeVerdict = document.querySelector('.pp-step.pp-active .verdict-notice');
+      if (activeVerdict) activeVerdict.style.display = 'block';
     }
 
     // ============ Pre-fill from URL params ============
