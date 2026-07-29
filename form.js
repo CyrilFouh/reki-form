@@ -327,7 +327,7 @@
       <div id="pp-verdict-screen" style="display:none;"><div class="pp-verdict"><div class="pp-verdict-icon" id="pp-verdict-icon"></div><h2 id="pp-verdict-title"></h2><p id="pp-verdict-msg"></p><div id="pp-verdict-estimations"></div><div class="pp-reasons-box"><ul id="pp-verdict-reasons"></ul></div><div class="pp-btn-row" style="flex-direction:column;gap:0.5rem;"><a href="https://www.reki.eu" class="pp-btn pp-btn-primary">Retour au site</a></div></div></div>
     </div>
   </section>`;
-('pp-form').innerHTML = FORM_HTML;
+document.getElementById('pp-form').innerHTML = FORM_HTML;
 
 // ============ State ============
     let currentStep = 1;
