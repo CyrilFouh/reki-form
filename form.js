@@ -433,9 +433,6 @@
     </div>
   </section>
 
-    </div>
-  </section>
-
   <footer class="pp-footer">
     <div class="pp-footer-inner">
       <div class="pp-footer-brand">
@@ -510,7 +507,7 @@
     // ============ Validation ============
     function validateStep(step) {
       clearErrors();
-      if (step === 1) {
+      if (step === 6) {
         const email = document.getElementById('email');
         const rgpd = document.getElementById('rgpd_consent');
         let ok = true;
@@ -656,7 +653,7 @@
       return {
         entreprise: { siren: data.siren || '', raison_sociale: '', forme_juridique: '', secteur_naf: data.isCreation ? (data.creation_secteur || '') : '', date_creation: '', anciennete_annees: 0 },
         contact: { nom: '', email: document.getElementById('email')?.value || '', telephone: '', consentement_rgpd: document.getElementById('rgpd_consent')?.checked || false },
-        financier: { ca_annuel: data.revenue_ttm || null, ebe_annuel: data.cashgen_unknown ? null : (data.annual_cash_generation || null), dette_financiere: data.existing_debt_service || null, tresorerie_nette: null, exercices_clos: data.isCreation ? 0 : 1, capitaux_propres: null, revenue_trend: data.revenue_trend || 'stable' },
+        financier: { ca_annuel: data.revenue_ttm || null, ebe_annuel: data.cashgen_unknown ? null : (data.annual_cash_generation || null), dette_financiere: data.existing_debt_service || null, tresorerie_nette: null, exercices_clos: data.isCreation ? 0 : parseInt(document.querySelector('input[name="exercice_clos"]:checked')?.value || '0'), capitaux_propres: null, revenue_trend: data.revenue_trend || 'stable' },
         projet: { objet_pret: data.project_type || 'autre', montant_demande: data.requested_amount || 0, apport_personnel: data.available_contribution || 0, duree_souhaitee: 7 },
         flags: { procedure_collective: adv.includes('procedure_collective'), liquidation_judiciaire: adv.includes('liquidation'), retards_fiscaux: adv.includes('retards_fiscaux'), retards_sociaux: adv.includes('retards_sociaux'), rejets_bancaires: adv.includes('rejets_bancaires'), echeancier_en_cours: adv.includes('echeancier') }
       };
