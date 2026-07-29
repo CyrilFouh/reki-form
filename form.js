@@ -38,7 +38,7 @@
         <div class="pp-step pp-active" data-step="1">
           <div class="pp-step-title">Votre entreprise</div>
           <div class="pp-step-subtitle">Entrez votre SIREN. Si vous n'avez pas encore d'entreprise, laissez le champ vide.</div>
-          <div id="pp-siren-mode">
+          <div id="siren-mode">
             <div class="pp-field-group">
               <label for="siren">Numéro SIREN de votre entreprise</label>
               <span class="pp-hint">9 chiffres — nous préremplirons les informations publiques</span>
@@ -49,16 +49,16 @@
                 Mon entreprise est en cours de création
               </button>
             </div>
-            <div id="pp-siren-confirm" style="display:none;" class="pp-company-confirm">
-              <div class="pp-name" id="pp-siren-name">—</div>
-              <div class="pp-info" id="pp-siren-info">—</div>
+            <div id="siren-confirm" style="display:none;" class="pp-company-confirm">
+              <div class="pp-name" id="siren-name">—</div>
+              <div class="pp-info" id="siren-info">—</div>
               <div style="margin-top:0.75rem; display:flex; gap:0.5rem;">
                 <button type="button" class="pp-btn pp-btn-outline" onclick="confirmSiren()" style="font-size:var(--pp-fs-s); flex:1;">Oui, c'est mon entreprise</button>
                 <button type="button" class="pp-btn pp-btn-secondary" onclick="resetSiren()" style="font-size:var(--pp-fs-s); flex:1;">Non, modifier le SIREN</button>
               </div>
             </div>
           </div>
-          <div id="pp-creation-mode" style="display:none;">
+          <div id="creation-mode" style="display:none;">
             <div class="pp-company-confirm">
               <div class="pp-name">Entreprise en création</div>
               <div class="pp-info">Parcours adapté aux porteurs de projet sans entreprise encore immatriculée.</div>
