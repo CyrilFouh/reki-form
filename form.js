@@ -256,6 +256,23 @@
       <div id="pp-verdict-screen" style="display:none;">
         <div class="pp-verdict"><div class="pp-verdict-icon" id="pp-verdict-icon"></div><h2 id="pp-verdict-title"></h2><p id="pp-verdict-msg"></p><div id="pp-verdict-estimations"></div><div class="pp-reasons-box"><ul id="pp-verdict-reasons"></ul></div><div class="pp-btn-row" style="flex-direction:column;gap:0.5rem;"><a href="https://www.reki.eu" class="pp-btn pp-btn-primary">Retour au site</a></div></div>
       </div>
+
+  <footer class="pp-footer">
+    <div class="pp-footer-inner">
+      <div class="pp-footer-brand">
+        <a href="https://www.reki.eu" class="pp-navbar-logo" aria-label="Reki">
+          <img src="https://cdn.prod.website-files.com/66e83aa7dfde79e2181aec17/67f643c671467ca4c3c34118_LOGO_WEBCLIP.png" alt="Reki" class="pp-logo-icon">
+          <img src="https://cdn.prod.website-files.com/66e83aa7dfde79e2181aec17/67f64110b3be61bad2bbe5b1_TEXT@2x.svg" alt="Reki" class="pp-logo-text">
+        </a>
+      </div>
+      <div class="pp-footer-links">
+        <a href="https://www.reki.eu/politique-de-confidentialite" target="_blank">Confidentialité</a>
+        <a href="https://www.reki.eu/mentions-legales" target="_blank">Mentions légales</a>
+        <a href="mailto:contact@reki.eu">Contact</a>
+      </div>
+      <div class="pp-footer-copy">© 2026 Reki — Tous droits réservés</div>
+    </div>
+  </footer>
     </div>
   </section>`;
   document.getElementById('pp-form').innerHTML = FORM_HTML;
@@ -466,7 +483,7 @@
       return {
         entreprise: { siren: data.siren || '', raison_sociale: '', forme_juridique: '', secteur_naf: data.isCreation ? (data.creation_secteur || '') : '', date_creation: '', anciennete_annees: 0 },
         contact: { nom: '', email: document.getElementById('email')?.value || '', telephone: '', consentement_rgpd: document.getElementById('rgpd_consent')?.checked || false },
-        financier: { ca_annuel: data.revenue_ttm || null, ebe_annuel: data.cashgen_unknown ? null : (data.annual_cash_generation || null), dette_financiere: data.existing_debt_service || null, tresorerie_nette: null, exercices_clos: data.isCreation ? 0 : parseInt(document.querySelector('input[name="exercice_clos"]:checked')?.value || '0'), capitaux_propres: null, revenue_trend: data.revenue_trend || 'stable' },
+        financier: { ca_annuel: data.revenue_ttm || null, ebe_annuel: data.cashgen_unknown ? null : (data.annual_cash_generation || null), dette_financiere: data.existing_debt_service || null, tresorerie_nette: null, exercices_clos: data.isCreation ? 0 : (parseInt(document.querySelector('input[name="exercice_clos"]:checked')?.value) || 0), capitaux_propres: null, revenue_trend: data.revenue_trend || 'stable' },
         projet: { objet_pret: data.project_type || 'autre', montant_demande: data.requested_amount || 0, apport_personnel: data.available_contribution || 0, duree_souhaitee: 7 },
         flags: { procedure_collective: adv.includes('procedure_collective'), liquidation_judiciaire: adv.includes('liquidation'), retards_fiscaux: adv.includes('retards_fiscaux'), retards_sociaux: adv.includes('retards_sociaux'), rejets_bancaires: adv.includes('rejets_bancaires'), echeancier_en_cours: adv.includes('echeancier') }
       };

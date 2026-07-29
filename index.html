@@ -138,7 +138,7 @@
     .footer { background-color: var(--neural-100); border-radius: var(--radius-wrapper) var(--radius-wrapper) 0 0; padding: 2rem 2.5rem; margin-top: 2rem; }
     .footer-inner { max-width: 66rem; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
     .footer-brand { display: flex; align-items: center; gap: 0.5rem; }
-    .footer-brand #pp-form img { height: 28px; }
+    .footer-brand img { height: 28px; width: auto; display: block; }
     .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
     .footer-links #pp-form a { font-size: var(--fs-xs); color: var(--neural-500); font-weight: 500; transition: color 0.2s; }
     .footer-links a:hover { color: var(--brand-yellow-900); }
@@ -588,6 +588,23 @@
       </form>
     </div>
   </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="https://www.reki.eu" class="navbar-logo" aria-label="Reki">
+          <img src="https://cdn.prod.website-files.com/66e83aa7dfde79e2181aec17/67f643c671467ca4c3c34118_LOGO_WEBCLIP.png" alt="Reki" class="logo-icon">
+          <img src="https://cdn.prod.website-files.com/66e83aa7dfde79e2181aec17/67f64110b3be61bad2bbe5b1_TEXT@2x.svg" alt="Reki" class="logo-text">
+        </a>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.reki.eu/politique-de-confidentialite" target="_blank">Confidentialité</a>
+        <a href="https://www.reki.eu/mentions-legales" target="_blank">Mentions légales</a>
+        <a href="mailto:contact@reki.eu">Contact</a>
+      </div>
+      <div class="footer-copy">© 2026 Reki — Tous droits réservés</div>
+    </div>
+  </footer>
   </div>
 </div>
 <script>
